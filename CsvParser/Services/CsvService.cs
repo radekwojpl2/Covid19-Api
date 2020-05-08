@@ -9,11 +9,13 @@ namespace CsvParser.Services
     public class CsvService : ISaveFiles
     {
         private readonly IFileProvider _fileProvider;
-        private readonly string pathToCsvFiles;
-        private readonly string pathToJsonFilesDestination;
+        private readonly string _pathToCsvFiles;
+        private readonly string _pathToJsonFilesDestination;
 
-        public CsvService()
+        public CsvService(string pathToCsvFiles, string pathToJsonFilesDestination)
         {
+            _pathToCsvFiles = pathToCsvFiles;
+            _pathToJsonFilesDestination = pathToJsonFilesDestination;
             _fileProvider = new CsvProvider();
         }
 
@@ -43,12 +45,12 @@ namespace CsvParser.Services
         {
             try
             {
-                var content = _fileProvider.ParseCountriesAggregatedFile();
+                var content = _fileProvider.ParseCountriesAggregatedFile(_pathToCsvFiles);
 
                 this.DeleteFileIfExist(
-                    "countries-aggregated.json");
+                    _pathToJsonFilesDestination + "/countries-aggregated.json");
 
-                File.WriteAllText("countries-aggregated.json",
+                File.WriteAllText(_pathToJsonFilesDestination + "/countries-aggregated.json",
                     content);
 
                 return true;
@@ -69,13 +71,13 @@ namespace CsvParser.Services
         {
             try
             {
-                var content = _fileProvider.ParseTimeSeries19CovidCombinedFile();
-                
+                var content = _fileProvider.ParseTimeSeries19CovidCombinedFile(_pathToCsvFiles);
+
                 this.DeleteFileIfExist(
-                    "/home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData/time-series-19-covid-combined.json");
+                    _pathToJsonFilesDestination + "/time-series-19-covid-combined.json");
 
                 File.WriteAllText(
-                    "/home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData/time-series-19-covid-combined.json", content);
+                    _pathToJsonFilesDestination + "/time-series-19-covid-combined.json", content);
 
                 return true;
             }
@@ -90,13 +92,13 @@ namespace CsvParser.Services
         {
             try
             {
-                var content = _fileProvider.ParseTimeSeries19CovidCombinedFile();
-                
+                var content = _fileProvider.ParseTimeSeries19CovidCombinedFile(_pathToCsvFiles);
+
                 this.DeleteFileIfExist(
-                    "/home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData/key-countries-pivoted.json");
+                    _pathToJsonFilesDestination + "/key-countries-pivoted.json");
 
                 File.WriteAllText(
-                    "/home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData/key-countries-pivoted.json", content);
+                    _pathToJsonFilesDestination + "/key-countries-pivoted.json", content);
 
                 return true;
             }
@@ -121,12 +123,12 @@ namespace CsvParser.Services
         {
             try
             {
-                var content = _fileProvider.ParseWorldWideAggregatedFile();
-                
-                this.DeleteFileIfExist(
-                    "/home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData/worldwide-aggregated.json");
+                var content = _fileProvider.ParseWorldWideAggregatedFile(_pathToCsvFiles);
 
-                File.WriteAllText("/home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData/worldwide-aggregated.json",
+                this.DeleteFileIfExist(
+                    _pathToJsonFilesDestination + "/worldwide-aggregated.json");
+
+                File.WriteAllText(_pathToJsonFilesDestination + "/worldwide-aggregated.json",
                     content);
 
                 return true;

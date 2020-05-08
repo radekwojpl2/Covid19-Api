@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
-using CsvHelper;
-using CsvParser.Models;
-using CsvParser.Providers;
 using CsvParser.Services;
-using Newtonsoft.Json;
 
 namespace CsvParser
 {
     class Program
     {
-        
         static int Main(string[] args)
         {
             string pathToCsvFiles = "";
@@ -26,8 +20,8 @@ namespace CsvParser
                 Console.WriteLine(e);
                 return 0;
             }
-            
-            var csvProvider = new CsvService();
+
+            var csvProvider = new CsvService(pathToCsvFiles, pathToJsonDestination);
 
             try
             {
@@ -35,7 +29,7 @@ namespace CsvParser
                 csvProvider.SaveCountriesAggregatedFile();
                 csvProvider.SaveTimeSeries19CovidCombinedFile();
                 csvProvider.SaveKeyCountriesPivotedFile();
-
+                
                 return 1;
             }
             catch (Exception e)
@@ -44,7 +38,8 @@ namespace CsvParser
                 return 0;
             }
         }
-        static void laodParameters(string[] args ,ref string pathToCSV, ref string pathToJsonDestination)
+
+        static void laodParameters(string[] args, ref string pathToCSV, ref string pathToJsonDestination)
         {
             for (int i = 0; i < args.Length; i++)
             {

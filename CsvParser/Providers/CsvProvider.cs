@@ -10,14 +10,14 @@ namespace CsvParser.Providers
 {
     public class CsvProvider : IFileProvider
     {
-        public string ParseCountriesAggregatedFile()
+        public string ParseCountriesAggregatedFile(string pathToFolder)
         {
             try
             {
                 //Environment.CurrentDirectory
                 using (var reader =
                     new StreamReader(
-                        "/home/radek/Desktop/Covid19-Api/Covid19-Api/dataset/data/countries-aggregated.csv"))
+                        pathToFolder + "/countries-aggregated.csv"))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
                     var records = csv.GetRecords<CountriesAggregated>();
@@ -34,19 +34,19 @@ namespace CsvParser.Providers
             }
         }
 
-        public string ParseReferencesFile()
+        public string ParseReferencesFile(string pathToFolder)
         {
             throw new System.NotImplementedException();
         }
 
-        public string ParseTimeSeries19CovidCombinedFile()
+        public string ParseTimeSeries19CovidCombinedFile(string pathToFolder)
         {
             try
             {
                 //Environment.CurrentDirectory
                 using (var reader =
                     new StreamReader(
-                        "/home/radek/Desktop/Covid19-Api/Covid19-Api/dataset/data/time-series-19-covid-combined.csv"))
+                        pathToFolder + "/time-series-19-covid-combined.csv"))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
                     var records = csv.GetRecords<TimeSeries19Covid>();
@@ -63,14 +63,14 @@ namespace CsvParser.Providers
             }
         }
 
-        public string ParseKeyCountriesPivotedFile()
+        public string ParseKeyCountriesPivotedFile(string pathToFolder)
         {
             try
             {
                 //Environment.CurrentDirectory
                 using (var reader =
                     new StreamReader(
-                        "/home/radek/Desktop/Covid19-Api/Covid19-Api/dataset/data/key-countries-pivoted.csv"))
+                        pathToFolder + "/key-countries-pivoted.csv"))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
                     var records = csv.GetRecords<KeyCountries>();
@@ -87,24 +87,24 @@ namespace CsvParser.Providers
             }
         }
 
-        public string ParseUsConfirmedFile()
+        public string ParseUsConfirmedFile(string pathToFolder)
         {
             throw new System.NotImplementedException();
         }
 
-        public string ParseUsDeathsFile()
+        public string ParseUsDeathsFile(string pathToFolder)
         {
             throw new System.NotImplementedException();
         }
 
-        public string ParseWorldWideAggregatedFile()
+        public string ParseWorldWideAggregatedFile(string pathToFolder)
         {
             try
             {
                 //Environment.CurrentDirectory
                 using (var reader =
                     new StreamReader(
-                        "/home/radek/Desktop/Covid19-Api/Covid19-Api/dataset/data/worldwide-aggregated.csv"))
+                        pathToFolder + "/worldwide-aggregated.csv"))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
                     var records = csv.GetRecords<WordWideCases>();
