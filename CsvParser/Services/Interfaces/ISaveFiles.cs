@@ -6,7 +6,7 @@ namespace CsvParser.Services
         public bool SaveUsConfirmedFile();
         public bool SaveUsDeathsFile();
         public bool SaveWorldWideAggregatedFile();
-        public bool SaveUKeyCountriesPivotedFile();
+        public bool SaveKeyCountriesPivotedFile();
         public bool SaveTimeSeries19CovidCombinedFile();
         public bool SaveReferencesFile();
     }

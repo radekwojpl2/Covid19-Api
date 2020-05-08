@@ -6,7 +6,7 @@ namespace CsvParser.Providers.Interfaces
         public string ParseUsConfirmedFile();
         public string ParseUsDeathsFile();
         public string ParseWorldWideAggregatedFile();
-        public string ParseUKeyCountriesPivotedFile();
+        public string ParseKeyCountriesPivotedFile();
         public string ParseTimeSeries19CovidCombinedFile();
         public string ParseReferencesFile();
 

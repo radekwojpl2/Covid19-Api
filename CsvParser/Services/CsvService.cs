@@ -9,54 +9,54 @@ namespace CsvParser.Services
     public class CsvService : ISaveFiles
     {
         private readonly IFileProvider _fileProvider;
+        private readonly string pathToCsvFiles;
+        private readonly string pathToJsonFilesDestination;
 
         public CsvService()
         {
             _fileProvider = new CsvProvider();
         }
 
-        private void DeleteFileIfExist(string filePath )
+        private void DeleteFileIfExist(string filePath)
         {
             if (File.Exists(filePath))
             {
                 File.Delete(filePath);
             }
-      
         }
 
         public bool ProccesAllFiles()
         {
             try
             {
-            this.SaveWorldWideAggregatedFile();
-            return true;
+                this.SaveWorldWideAggregatedFile();
+                return true;
             }
-            catch (System.Exception)
+            catch (System.Exception exception)
             {
-                
+                Console.WriteLine(exception);
                 throw;
             }
-
         }
 
         public bool SaveCountriesAggregatedFile()
         {
             try
             {
-               var content = _fileProvider.ParseCountriesAggregatedFile();
+                var content = _fileProvider.ParseCountriesAggregatedFile();
 
-               Console.WriteLine(Directory.GetCurrentDirectory());
+                this.DeleteFileIfExist(
+                    "countries-aggregated.json");
 
-                this.DeleteFileIfExist("/home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData/countries-aggregated.json");
-
-                File.WriteAllText("/home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData/countries-aggregated.json", content);
+                File.WriteAllText("countries-aggregated.json",
+                    content);
 
                 return true;
-
             }
-            catch (System.Exception)
+            catch (System.Exception exception)
             {
-                return false;
+                Console.WriteLine(exception);
+                throw;
             }
         }
 
@@ -67,12 +67,44 @@ namespace CsvParser.Services
 
         public bool SaveTimeSeries19CovidCombinedFile()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var content = _fileProvider.ParseTimeSeries19CovidCombinedFile();
+                
+                this.DeleteFileIfExist(
+                    "/home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData/time-series-19-covid-combined.json");
+
+                File.WriteAllText(
+                    "/home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData/time-series-19-covid-combined.json", content);
+
+                return true;
+            }
+            catch (System.Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
         }
 
-        public bool SaveUKeyCountriesPivotedFile()
+        public bool SaveKeyCountriesPivotedFile()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var content = _fileProvider.ParseTimeSeries19CovidCombinedFile();
+                
+                this.DeleteFileIfExist(
+                    "/home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData/key-countries-pivoted.json");
+
+                File.WriteAllText(
+                    "/home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData/key-countries-pivoted.json", content);
+
+                return true;
+            }
+            catch (System.Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
         }
 
         public bool SaveUsConfirmedFile()
@@ -89,20 +121,20 @@ namespace CsvParser.Services
         {
             try
             {
-               var content = _fileProvider.ParseWorldWideAggregatedFile();
+                var content = _fileProvider.ParseWorldWideAggregatedFile();
+                
+                this.DeleteFileIfExist(
+                    "/home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData/worldwide-aggregated.json");
 
-               Console.WriteLine(Directory.GetCurrentDirectory());
-
-                this.DeleteFileIfExist("/home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData/worldwide-aggregated.json");
-
-                File.WriteAllText("/home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData/worldwide-aggregated.json", content);
+                File.WriteAllText("/home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData/worldwide-aggregated.json",
+                    content);
 
                 return true;
-
             }
-            catch (System.Exception)
+            catch (System.Exception exception)
             {
-                return false;
+                Console.WriteLine(exception);
+                throw;
             }
         }
     }
