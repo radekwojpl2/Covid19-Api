@@ -9,7 +9,7 @@ Thise repo uses dataset from https://github.com/datasets/covid-19/tree/352f740f6
 
 ## CsvParser
 
-This app supports needs arguments to run
+This app needs arguments to run
 
 ### Arguments
 
