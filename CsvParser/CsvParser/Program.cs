@@ -22,7 +22,8 @@ namespace CsvParser
                 return 0;
             }
 
-            var csvProvider = new CsvService(pathToCsvFiles, pathToJsonDestination, new CsvProvider(new StreamProvider()));
+            var csvProvider = new CsvService(pathToCsvFiles, pathToJsonDestination,
+                new CsvProvider(new ReadFileProvider()));
 
             try
             {
@@ -30,7 +31,7 @@ namespace CsvParser
                 csvProvider.SaveCountriesAggregatedFile();
                 csvProvider.SaveTimeSeries19CovidCombinedFile();
                 csvProvider.SaveKeyCountriesPivotedFile();
-                
+
                 return 1;
             }
             catch (Exception e)

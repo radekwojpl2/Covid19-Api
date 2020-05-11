@@ -79,7 +79,7 @@ namespace CsvParser.Services
         {
             try
             {
-                var content = _fileProvider.ParseTimeSeries19CovidCombinedFile(_pathToCsvFiles);
+                var content = _fileProvider.ParseKeyCountriesPivotedFile(_pathToCsvFiles);
 
                 this.DeleteFileIfExist(
                     _pathToJsonFilesDestination + "/key-countries-pivoted.json");

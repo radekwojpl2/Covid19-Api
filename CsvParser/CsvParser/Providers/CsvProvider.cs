@@ -10,26 +10,20 @@ namespace CsvParser.Providers
 {
     public class CsvProvider : IFileProvider
     {
-        private readonly IStreamProvider _streamProvider;
+        private readonly IReadFileProvider _readFileProvider;
 
-        public CsvProvider(IStreamProvider streamProvider)
+        public CsvProvider(IReadFileProvider readFileProvider)
         {
-            _streamProvider = streamProvider;
+            _readFileProvider = readFileProvider;
         }
 
         public string ParseCountriesAggregatedFile(string pathToFolder)
         {
             try
             {
-                using (var reader =
-                    _streamProvider.StreamReader(
-                        Path.Combine(pathToFolder + "/countries-aggregated.csv")))
-                using (var csv = _streamProvider.CsvReader(reader))
-                {
-                    var records = csv.GetRecords<CountriesAggregated>();
+                var records = _readFileProvider.ReadCountriesAggregatedFile(pathToFolder);
 
-                    return JsonConvert.SerializeObject(records);
-                }
+                return JsonConvert.SerializeObject(records);
             }
             catch (System.Exception exception)
             {
@@ -49,15 +43,9 @@ namespace CsvParser.Providers
         {
             try
             {
-                using (var reader =
-                    _streamProvider.StreamReader(
-                        Path.Combine(pathToFolder + "/time-series-19-covid-combined.csv")))
-                using (var csv = _streamProvider.CsvReader(reader))
-                {
-                    var records = csv.GetRecords<TimeSeries19Covid>();
+                var records = _readFileProvider.ReadTimeSeries19CovidCombinedFile(pathToFolder);
 
-                    return JsonConvert.SerializeObject(records);
-                }
+                return JsonConvert.SerializeObject(records);
             }
             catch (System.Exception exception)
             {
@@ -72,15 +60,9 @@ namespace CsvParser.Providers
         {
             try
             {
-                using (var reader =
-                    _streamProvider.StreamReader(
-                        Path.Combine(pathToFolder + "/key-countries-pivoted.csv")))
-                using (var csv = _streamProvider.CsvReader(reader))
-                {
-                    var records = csv.GetRecords<KeyCountries>();
+                var records = _readFileProvider.ReadKeyCountriesPivotedFile(pathToFolder);
 
-                    return JsonConvert.SerializeObject(records);
-                }
+                return JsonConvert.SerializeObject(records);
             }
             catch (System.Exception exception)
             {
@@ -105,15 +87,9 @@ namespace CsvParser.Providers
         {
             try
             {
-                using (var reader =
-                    _streamProvider.StreamReader(
-                        Path.Combine(pathToFolder + "/worldwide-aggregated.csv")))
-                using (var csv = _streamProvider.CsvReader(reader))
-                {
-                    var records = csv.GetRecords<WordWideCases>();
+                var records = _readFileProvider.ReadWorldWideAggregatedFile(pathToFolder);
 
-                    return JsonConvert.SerializeObject(records);
-                }
+                return JsonConvert.SerializeObject(records);
             }
             catch (System.Exception exception)
             {
