@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 
 namespace CsvParser.Providers
 {
+  
     public class CsvProvider : IFileProvider
     {
         private readonly IReadFileProvider _readFileProvider;
