@@ -22,7 +22,7 @@ namespace CsvParser
                 return 0;
             }
 
-            var csvProvider = new CsvService(pathToCsvFiles, pathToJsonDestination, new CsvProvider());
+            var csvProvider = new CsvService(pathToCsvFiles, pathToJsonDestination, new CsvProvider(new StreamProvider()));
 
             try
             {

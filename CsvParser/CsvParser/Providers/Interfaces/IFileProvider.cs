@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace CsvParser.Providers.Interfaces
 {
     public interface IFileProvider

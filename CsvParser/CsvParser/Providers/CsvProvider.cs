@@ -10,14 +10,21 @@ namespace CsvParser.Providers
 {
     public class CsvProvider : IFileProvider
     {
+        private readonly IStreamProvider _streamProvider;
+
+        public CsvProvider(IStreamProvider streamProvider)
+        {
+            _streamProvider = streamProvider;
+        }
+
         public string ParseCountriesAggregatedFile(string pathToFolder)
         {
             try
             {
                 using (var reader =
-                    new StreamReader(
-                        pathToFolder + "/countries-aggregated.csv"))
-                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                    _streamProvider.StreamReader(
+                        Path.Combine(pathToFolder + "/countries-aggregated.csv")))
+                using (var csv = _streamProvider.CsvReader(reader))
                 {
                     var records = csv.GetRecords<CountriesAggregated>();
 
@@ -42,11 +49,10 @@ namespace CsvParser.Providers
         {
             try
             {
-                //Environment.CurrentDirectory
                 using (var reader =
-                    new StreamReader(
-                        pathToFolder + "/time-series-19-covid-combined.csv"))
-                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                    _streamProvider.StreamReader(
+                        Path.Combine(pathToFolder + "/time-series-19-covid-combined.csv")))
+                using (var csv = _streamProvider.CsvReader(reader))
                 {
                     var records = csv.GetRecords<TimeSeries19Covid>();
 
@@ -66,11 +72,10 @@ namespace CsvParser.Providers
         {
             try
             {
-                //Environment.CurrentDirectory
                 using (var reader =
-                    new StreamReader(
-                        pathToFolder + "/key-countries-pivoted.csv"))
-                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                    _streamProvider.StreamReader(
+                        Path.Combine(pathToFolder + "/key-countries-pivoted.csv")))
+                using (var csv = _streamProvider.CsvReader(reader))
                 {
                     var records = csv.GetRecords<KeyCountries>();
 
@@ -100,11 +105,10 @@ namespace CsvParser.Providers
         {
             try
             {
-                //Environment.CurrentDirectory
                 using (var reader =
-                    new StreamReader(
-                        pathToFolder + "/worldwide-aggregated.csv"))
-                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                    _streamProvider.StreamReader(
+                        Path.Combine(pathToFolder + "/worldwide-aggregated.csv")))
+                using (var csv = _streamProvider.CsvReader(reader))
                 {
                     var records = csv.GetRecords<WordWideCases>();
 
