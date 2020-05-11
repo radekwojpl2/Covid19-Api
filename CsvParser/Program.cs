@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using CsvParser.Providers;
 using CsvParser.Services;
 
 namespace CsvParser
@@ -21,7 +22,7 @@ namespace CsvParser
                 return 0;
             }
 
-            var csvProvider = new CsvService(pathToCsvFiles, pathToJsonDestination);
+            var csvProvider = new CsvService(pathToCsvFiles, pathToJsonDestination, new CsvProvider());
 
             try
             {
@@ -34,7 +35,7 @@ namespace CsvParser
             }
             catch (Exception e)
             {
-                Console.WriteLine("ERROR: Error during processing one");
+                Console.WriteLine($"ERROR: Error during processing {e}");
                 return 0;
             }
         }

@@ -12,33 +12,11 @@ namespace CsvParser.Services
         private readonly string _pathToCsvFiles;
         private readonly string _pathToJsonFilesDestination;
 
-        public CsvService(string pathToCsvFiles, string pathToJsonFilesDestination)
+        public CsvService(string pathToCsvFiles, string pathToJsonFilesDestination, IFileProvider fileProvider)
         {
             _pathToCsvFiles = pathToCsvFiles;
             _pathToJsonFilesDestination = pathToJsonFilesDestination;
-            _fileProvider = new CsvProvider();
-        }
-
-        private void DeleteFileIfExist(string filePath)
-        {
-            if (File.Exists(filePath))
-            {
-                File.Delete(filePath);
-            }
-        }
-
-        public bool ProccesAllFiles()
-        {
-            try
-            {
-                this.SaveWorldWideAggregatedFile();
-                return true;
-            }
-            catch (System.Exception exception)
-            {
-                Console.WriteLine(exception);
-                throw;
-            }
+            _fileProvider = fileProvider;
         }
 
         public bool SaveCountriesAggregatedFile()
@@ -57,10 +35,19 @@ namespace CsvParser.Services
             }
             catch (System.Exception exception)
             {
-                Console.WriteLine(exception);
+                Console.WriteLine("Error: Error during saving CountriesAggregatedFile");
                 throw;
             }
         }
+
+         private void DeleteFileIfExist(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+        }
+
 
         public bool SaveReferencesFile()
         {

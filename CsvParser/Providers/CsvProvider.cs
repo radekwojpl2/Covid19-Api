@@ -14,7 +14,6 @@ namespace CsvParser.Providers
         {
             try
             {
-                //Environment.CurrentDirectory
                 using (var reader =
                     new StreamReader(
                         pathToFolder + "/countries-aggregated.csv"))

@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Covid19Api.Repositories.Interfaces;
 using Covid19Api.Services.Interfaces;
+using CsvParser.Models;
 
 namespace Covid19Api.Services
 {
@@ -14,9 +16,61 @@ namespace Covid19Api.Services
             _csvRepository = csvRepository;
         }
 
-        Task<IEnumerable<string>> ICsvService.GetAllFileNames()
+
+        public IEnumerable<CountriesAggregated> GetAllDataFromCountriesAggregated()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                return _csvRepository.GetAllDataFromCountriesAggregated();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public IEnumerable<WordWideCases> GetAllDataFromWorldWideAggregated()
+        {
+            try
+            {
+                return _csvRepository.GetAllDataFromWorldWideAggregated();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public IEnumerable<KeyCountries> GetAllDataFromKeyCountriesPivoted()
+        {
+            try
+            {
+                return _csvRepository.GetAllDataFromKeyCountriesPivoted();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public IEnumerable<TimeSeries19Covid> GetAllDataFromTimeSeries19CovidCombined()
+        {
+            try
+            {
+                return _csvRepository.GetAllDataFromTimeSeries19CovidCombined();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }
