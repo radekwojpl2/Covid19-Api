@@ -5,9 +5,9 @@ using CsvParser.Services;
 
 namespace CsvParser
 {
-    class Program
+   public class Program
     {
-        static int Main(string[] args)
+        public static int Main(string[] args)
         {
             string pathToCsvFiles = "";
             string pathToJsonDestination = "";
