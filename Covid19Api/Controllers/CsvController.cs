@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Covid19Api.Dtos;
 using Covid19Api.Services.Interfaces;
+using CsvParser.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +25,7 @@ namespace Covid19Api.Controllers
         }
 
         [HttpGet("GetAllDataFromCountriesAggregated")]
-        public IActionResult GetAllDataFromCountriesAggregated()
+        public ActionResult<IEnumerable<CountriesAggregated>> GetAllDataFromCountriesAggregated()
         {
             try
             {
@@ -43,9 +45,28 @@ namespace Covid19Api.Controllers
                  return StatusCode(500);
             }
         }
-        
+
+        [HttpGet("GetByDateCountriesAggregated")]
+
+        public ActionResult<IEnumerable<CountriesAggregated>> GetByDateCountriesAggregated([FromQuery]DateDto dateTime)
+        {
+            try
+            {
+                var content = _csvService.GetByDateCountriesAggregated(dateTime);
+                
+                return  Ok(content);
+
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500);
+            }
+        }
+
         [HttpGet("GetAllDataFromWorldWideAggregated")]
-        public IActionResult GetAllDataFromWorldWideAggregated()
+        public ActionResult<IEnumerable<WordWideCases>> GetAllDataFromWorldWideAggregated()
         {
             try
             {
@@ -60,7 +81,7 @@ namespace Covid19Api.Controllers
         }
         
         [HttpGet("GetAllDataFromKeyCountriesPivoted")]
-        public IActionResult GetAllDataFromKeyCountriesPivoted()
+        public ActionResult<IEnumerable<KeyCountries>> GetAllDataFromKeyCountriesPivoted()
         {
             try
             {
@@ -75,7 +96,7 @@ namespace Covid19Api.Controllers
         }
         
         [HttpGet("GetAllDataFromTimeSeries19CovidCombined")]
-        public IActionResult GetAllDataFromTimeSeries19CovidCombined()
+        public ActionResult<IEnumerable<TimeSeries19Covid>> GetAllDataFromTimeSeries19CovidCombined()
         {
             try
             {

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using Covid19Api.Dtos;
 using Covid19Api.Repositories.Interfaces;
 using CsvParser.Models;
 using Microsoft.Extensions.Configuration;
@@ -23,15 +25,35 @@ namespace Covid19Api.Repositories
 
         public IEnumerable<CountriesAggregated> GetAllDataFromCountriesAggregated()
         {
-            var cos = _configuration["ApiSettings:CsvFolder"];
-            
             try
             {
                 using (StreamReader r =
-                    new StreamReader(Path.Combine(_configuration["ApiSettings:CsvFolder"] ,"countries-aggregated.json")))
+                    new StreamReader(Path.Combine(_configuration["ApiSettings:CsvFolder"],
+                        "countries-aggregated.json")))
                 {
                     string json = r.ReadToEnd();
                     var items = JsonConvert.DeserializeObject<List<CountriesAggregated>>(json);
+                    return items;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public IEnumerable<CountriesAggregated> GetByDateCountriesAggregated(DateDto dateTime)
+        {
+            try
+            {
+                using (StreamReader r =
+                    new StreamReader(Path.Combine(_configuration["ApiSettings:CsvFolder"],
+                        "countries-aggregated.json")))
+                {
+                    string json = r.ReadToEnd();
+                    var items = JsonConvert.DeserializeObject<List<CountriesAggregated>>(json)
+                        .Where(x => x.Date.Month == dateTime.Month && x.Date.Day == dateTime.Day );
                     return items;
                 }
             }
@@ -47,7 +69,8 @@ namespace Covid19Api.Repositories
             try
             {
                 using (StreamReader r =
-                    new StreamReader(Path.Combine(_configuration["ApiSettings:CsvFolder"] ,"worldwide-aggregated.json")))
+                    new StreamReader(Path.Combine(_configuration["ApiSettings:CsvFolder"],
+                        "worldwide-aggregated.json")))
                 {
                     string json = r.ReadToEnd();
                     var items = JsonConvert.DeserializeObject<List<WordWideCases>>(json);
@@ -66,7 +89,8 @@ namespace Covid19Api.Repositories
             try
             {
                 using (StreamReader r =
-                    new StreamReader(Path.Combine(_configuration["ApiSettings:CsvFolder"] ,"key-countries-pivoted.json")))
+                    new StreamReader(
+                        Path.Combine(_configuration["ApiSettings:CsvFolder"], "key-countries-pivoted.json")))
                 {
                     string json = r.ReadToEnd();
                     var items = JsonConvert.DeserializeObject<List<KeyCountries>>(json);
@@ -86,7 +110,7 @@ namespace Covid19Api.Repositories
             {
                 using (StreamReader r =
                     new StreamReader(
-                        Path.Combine(_configuration["ApiSettings:CsvFolder"] ,"time-series-19-covid-combined.json")))
+                        Path.Combine(_configuration["ApiSettings:CsvFolder"], "time-series-19-covid-combined.json")))
                 {
                     string json = r.ReadToEnd();
                     var items = JsonConvert.DeserializeObject<List<TimeSeries19Covid>>(json);

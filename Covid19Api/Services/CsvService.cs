@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Covid19Api.Dtos;
 using Covid19Api.Repositories.Interfaces;
 using Covid19Api.Services.Interfaces;
 using CsvParser.Models;
@@ -22,6 +23,20 @@ namespace Covid19Api.Services
             try
             {
                 return _csvRepository.GetAllDataFromCountriesAggregated();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public IEnumerable<CountriesAggregated> GetByDateCountriesAggregated(DateDto dateTime)
+        {
+            try
+            {
+                return _csvRepository.GetByDateCountriesAggregated(dateTime);
 
             }
             catch (Exception e)
