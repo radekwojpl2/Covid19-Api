@@ -4,11 +4,15 @@ import { CountriesAggregatedChartComponent } from './countries-aggregated-chart.
 import { ChartsModule } from 'ng2-charts';
 
 
+import {MatSelectModule} from '@angular/material/select'; 
+
+
 @NgModule({
   declarations: [CountriesAggregatedChartComponent],
   imports: [
     CommonModule,
-    ChartsModule
+    ChartsModule,
+    MatSelectModule
   ],
   exports: [
     CountriesAggregatedChartComponent

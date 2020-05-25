@@ -27,8 +27,9 @@ namespace Covid19Api.Repositories
         {
             try
             {
+                
                 using (StreamReader r =
-                    new StreamReader(Path.Combine(_configuration["ApiSettings:CsvFolder"],
+                    new StreamReader(Path.Combine("JsonData/",
                         "countries-aggregated.json")))
                 {
                     string json = r.ReadToEnd();
@@ -48,7 +49,7 @@ namespace Covid19Api.Repositories
             try
             {
                 using (StreamReader r =
-                    new StreamReader(Path.Combine(_configuration["ApiSettings:CsvFolder"],
+                    new StreamReader(Path.Combine("JsonData/",
                         "countries-aggregated.json")))
                 {
                     string json = r.ReadToEnd();
@@ -69,7 +70,7 @@ namespace Covid19Api.Repositories
             try
             {
                 using (StreamReader r =
-                    new StreamReader(Path.Combine(_configuration["ApiSettings:CsvFolder"],
+                    new StreamReader(Path.Combine("JsonData/",
                         "worldwide-aggregated.json")))
                 {
                     string json = r.ReadToEnd();
@@ -90,7 +91,7 @@ namespace Covid19Api.Repositories
             {
                 using (StreamReader r =
                     new StreamReader(
-                        Path.Combine(_configuration["ApiSettings:CsvFolder"], "key-countries-pivoted.json")))
+                        Path.Combine("JsonData/", "key-countries-pivoted.json")))
                 {
                     string json = r.ReadToEnd();
                     var items = JsonConvert.DeserializeObject<List<KeyCountries>>(json);
@@ -110,7 +111,7 @@ namespace Covid19Api.Repositories
             {
                 using (StreamReader r =
                     new StreamReader(
-                        Path.Combine(_configuration["ApiSettings:CsvFolder"], "time-series-19-covid-combined.json")))
+                        Path.Combine("JsonData/", "time-series-19-covid-combined.json")))
                 {
                     string json = r.ReadToEnd();
                     var items = JsonConvert.DeserializeObject<List<TimeSeries19Covid>>(json);

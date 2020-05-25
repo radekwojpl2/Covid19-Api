@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Covid19Service } from 'src/app/core/services/covid-19.service';
+import { CountriesAggregated } from 'src/app/core/interfaces/countries-aggregated';
+import { Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-countries-aggregated-chart',
@@ -9,45 +11,139 @@ import { Covid19Service } from 'src/app/core/services/covid-19.service';
 export class CountriesAggregatedChartComponent implements OnInit {
   constructor(private covidService: Covid19Service) {}
 
-  allData: {
-    confirmed: number;
-    country: string;
-    date: Date;
-    deaths: number;
-    recovered: number;
-  }[];
+  allData: CountriesAggregated[];
+
+  selected = 'Poland'
+
+  total: number;
+  deaths: number;
+  recovered: number;
 
   public barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public barChartLabels = Array.from(Array(120).keys());
+  public barChartLabels: Label[] = ['adasd', 'dasd', 'asdad'];
   public barChartType = 'line';
   public barChartLegend = true;
 
   public barChartData = [
-    { data: [123, 200], label: 'asd' },
-    { data: [123, 300], label: 'asd' }
+    { data: [], label: 'Poland Deaths' },
+    { data: [], label: 'Poland recoverd' },
+    { data: [], label: 'Poland confirmed' }
   ];
+
+  countryHasChanged($event) {
+    this.covidService.GetAllAggregatedCountries().subscribe((data: any) => {
+      this.allData = data;
+
+      this.total = this.allData
+        .filter(x => x.country == $event.value)
+        .map(x => x.confirmed)
+        .slice(-1)[0];
+
+      this.deaths = this.allData
+        .filter(x => x.country == $event.value)
+        .map(x => x.deaths)
+        .slice(-1)[0];
+        
+       
+
+      this.recovered = this.allData
+        .filter(x => x.country == $event.value)
+        .map(x => x.recovered)
+        .slice(-1)[0];
+
+      this.barChartLabels = this.allData
+        .filter(x => x.country == $event.value)
+        .map(x => x.date.slice(0, 10)) as Label[];
+
+      this.barChartData = [
+        {
+          data: [].concat.apply(
+            [],
+            this.allData
+              .filter(x => x.country == $event.value)
+              .map(x => x.deaths)
+              .map((value, index, elements: number[]) => {
+                if (index != 0) {
+                  return (value = elements[index] - elements[index - 1]);
+                }
+              })
+          ),
+          label: `${$event.value} Deaths`
+        },
+        {
+          data: [].concat.apply(
+            [],
+            this.allData
+              .filter(x => x.country == $event.value)
+              .map(x => x.recovered)
+              .map((value, index, elements: number[]) => {
+                if (index != 0) {
+                  return (value = elements[index] - elements[index - 1]);
+                }
+              })
+          ),
+          label: `${$event.value} recoverd`
+        },
+        {
+          data: [].concat.apply(
+            [],
+            this.allData
+              .filter(x => x.country == $event.value)
+              .map(x => x.confirmed)
+              .map((value, index, elements: number[]) => {
+                if (index != 0) {
+                  return (value = elements[index] - elements[index - 1]);
+                }
+              })
+          ),
+          label: `${$event.value}} confirmed`
+        }
+      ];
+    });
+   
+  }
 
   ngOnInit(): void {
     this.covidService.GetAllAggregatedCountries().subscribe((data: any) => {
       this.allData = data;
-      console.log(this.allData);
-      console.log(
-        this.allData.filter(x => x.country == 'Poland').map(x => x.recovered)
-      );
-    });
 
-    setTimeout(() => {
+      this.total = this.allData
+        .filter(x => x.country == 'Poland')
+        .map(x => x.confirmed)
+        .slice(-1)[0];
+
+      this.deaths = this.allData
+        .filter(x => x.country == 'Poland')
+        .map(x => x.deaths)
+        .slice(-1)[0];
+        
+       
+
+      this.recovered = this.allData
+        .filter(x => x.country == 'Poland')
+        .map(x => x.recovered)
+        .slice(-1)[0];
+
+      this.barChartLabels = this.allData
+        .filter(x => x.country == 'Poland')
+        .map(x => x.date.slice(0, 10)) as Label[];
+
       this.barChartData = [
         {
-          data: 
-            [].concat.apply(
-              [],
-              this.allData.filter(x => x.country == 'Poland').map(x => x.deaths)
-            )
-          ,
+          data: [].concat.apply(
+            [],
+            this.allData
+              .filter(x => x.country == 'Poland')
+              .map(x => x.deaths)
+              .map((value, index, elements: number[]) => {
+                if (index != 0) {
+                  return (value = elements[index] - elements[index - 1]);
+                }
+              })
+          ),
           label: 'Poland Deaths'
         },
         {
@@ -56,19 +152,29 @@ export class CountriesAggregatedChartComponent implements OnInit {
             this.allData
               .filter(x => x.country == 'Poland')
               .map(x => x.recovered)
+              .map((value, index, elements: number[]) => {
+                if (index != 0) {
+                  return (value = elements[index] - elements[index - 1]);
+                }
+              })
           ),
           label: 'Poland recoverd'
+        },
+        {
+          data: [].concat.apply(
+            [],
+            this.allData
+              .filter(x => x.country == 'Poland')
+              .map(x => x.confirmed)
+              .map((value, index, elements: number[]) => {
+                if (index != 0) {
+                  return (value = elements[index] - elements[index - 1]);
+                }
+              })
+          ),
+          label: 'Poland confirmed'
         }
       ];
-
-      console.log('deaths');
-      
-      console.log(
-        [].concat.apply(
-          [],
-          this.allData.filter(x => x.country == 'Poland').map(x => x.deaths)
-        )
-      );
-    }, 2000);
+    });
   }
 }

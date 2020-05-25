@@ -42,7 +42,7 @@ namespace Covid19Api.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                 return StatusCode(500);
+                throw;
             }
         }
 

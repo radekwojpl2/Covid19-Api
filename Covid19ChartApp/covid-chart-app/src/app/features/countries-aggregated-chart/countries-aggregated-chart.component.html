@@ -1,12 +1,53 @@
-<p>countries-aggregated-chart works!</p>
-<div>
-    <div style="display: block">
-      <canvas baseChart
-              [(datasets)]="barChartData"
-              [labels]="barChartLabels"
-              [options]="barChartOptions"
-              [legend]="barChartLegend"
-              [chartType]="barChartType">
-      </canvas>
+<div class="container">
+  <div class="container__item" style="justify-content: center">
+      <mat-form-field>
+          <mat-label>Select country</mat-label>
+          <mat-select [(value)]="selected" (selectionChange)= "countryHasChanged($event)">
+            <mat-option>None</mat-option>
+            <mat-option value="Poland">Poland</mat-option>
+            <mat-option value="Italy">Italy</mat-option>
+            <mat-option value="Afghanistan">Afghanistan</mat-option>
+          </mat-select>
+        </mat-form-field>
+  </div>
+</div>
+<div class="container">
+  <div class="container__item">
+    <div class="container__header">
+      RECOVERED
+    </div>
+    <div class="container__content container__content-recovered">
+      {{recovered}}
     </div>
   </div>
+  <div class="container__item">
+    <div class="container__header">
+      TOTAL
+    </div>
+    <div class="container__content">
+      {{total}}
+    </div>
+  </div>
+  <div class="container__item">
+    <div class="container__header">
+      DEATHS
+    </div>
+    <div class="container__content container__content-deaths">
+      {{deaths}}
+    </div>
+  </div>
+</div>
+
+<div>
+  <div style="display: block">
+    <canvas
+      baseChart
+      [(datasets)]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [legend]="barChartLegend"
+      [chartType]="barChartType"
+    >
+    </canvas>
+  </div>
+</div>

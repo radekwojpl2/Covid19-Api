@@ -9,9 +9,7 @@ namespace Covid19Api.Repositories.Interfaces
     public interface ICsvRepository
     {
         public IEnumerable<CountriesAggregated> GetAllDataFromCountriesAggregated();
-
         public IEnumerable<CountriesAggregated> GetByDateCountriesAggregated(DateDto dateTime);
-        
         public IEnumerable<WordWideCases> GetAllDataFromWorldWideAggregated();
         public IEnumerable<KeyCountries> GetAllDataFromKeyCountriesPivoted();
         public IEnumerable<TimeSeries19Covid> GetAllDataFromTimeSeries19CovidCombined();
