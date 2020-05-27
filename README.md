@@ -15,9 +15,14 @@ This app needs arguments to run
 
 1. path to folder with csv data
 2. path to folder where json file will be saved
+3. webMode
 
 ### Example
 
 1. Run from ClI $ dotnet run /home/radek/Desktop/Covid19-Api/Covid19-Api/dataset/data/ /home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData
 2. Run from binary  $./CsvParser /home/radek/Desktop/Covid19-Api/Covid19-Api/dataset/data/ /home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData
+
+#### WebMode
+
+dotnet run https://raw.githubusercontent.com/datasets/covid-19/master/data/ /home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData true
 
