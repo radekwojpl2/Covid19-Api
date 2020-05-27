@@ -15,4 +15,4 @@ RUN dotnet publish "CsvParser.csproj" -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "CsvParser.dll"]
+ENTRYPOINT ["dotnet", "CsvParser.dll", "https://raw.githubusercontent.com/datasets/covid-19/master/data/", "/app/", "true"]

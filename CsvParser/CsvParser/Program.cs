@@ -44,7 +44,7 @@ namespace CsvParser
                 csvProvider.SaveCountriesAggregatedFile();
                 csvProvider.SaveTimeSeries19CovidCombinedFile();
                 csvProvider.SaveKeyCountriesPivotedFile();
-
+                
                 return 1;
             }
             catch (Exception e)
