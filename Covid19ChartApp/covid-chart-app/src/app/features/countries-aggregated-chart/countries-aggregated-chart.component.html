@@ -1,16 +1,4 @@
-<div class="container">
-  <div class="container__item" style="justify-content: center">
-      <mat-form-field>
-          <mat-label>Select country</mat-label>
-          <mat-select [(value)]="selected" (selectionChange)= "countryHasChanged($event)">
-            <mat-option>None</mat-option>
-            <mat-option value="Poland">Poland</mat-option>
-            <mat-option value="Italy">Italy</mat-option>
-            <mat-option value="Afghanistan">Afghanistan</mat-option>
-          </mat-select>
-        </mat-form-field>
-  </div>
-</div>
+<app-country-picker [countryList] = "countryList" (onCountryChanged) = "countryHasChanged($event)" ></app-country-picker>
 <div class="container">
   <div class="container__item">
     <div class="container__header">

@@ -13,7 +13,7 @@ export class CountriesAggregatedChartComponent implements OnInit {
 
   allData: CountriesAggregated[];
 
-  selected = 'Poland'
+  countryList: string[];
 
   total: number;
   deaths: number;
@@ -38,24 +38,22 @@ export class CountriesAggregatedChartComponent implements OnInit {
       this.allData = data;
 
       this.total = this.allData
-        .filter(x => x.country == $event.value)
+        .filter(x => x.country == $event)
         .map(x => x.confirmed)
         .slice(-1)[0];
 
       this.deaths = this.allData
-        .filter(x => x.country == $event.value)
+        .filter(x => x.country == $event)
         .map(x => x.deaths)
         .slice(-1)[0];
-        
-       
 
       this.recovered = this.allData
-        .filter(x => x.country == $event.value)
+        .filter(x => x.country == $event)
         .map(x => x.recovered)
         .slice(-1)[0];
 
       this.barChartLabels = this.allData
-        .filter(x => x.country == $event.value)
+        .filter(x => x.country == $event)
         .map(x => x.date.slice(0, 10)) as Label[];
 
       this.barChartData = [
@@ -63,7 +61,7 @@ export class CountriesAggregatedChartComponent implements OnInit {
           data: [].concat.apply(
             [],
             this.allData
-              .filter(x => x.country == $event.value)
+              .filter(x => x.country == $event)
               .map(x => x.deaths)
               .map((value, index, elements: number[]) => {
                 if (index != 0) {
@@ -71,13 +69,13 @@ export class CountriesAggregatedChartComponent implements OnInit {
                 }
               })
           ),
-          label: `${$event.value} Deaths`
+          label: `${$event} Deaths`
         },
         {
           data: [].concat.apply(
             [],
             this.allData
-              .filter(x => x.country == $event.value)
+              .filter(x => x.country == $event)
               .map(x => x.recovered)
               .map((value, index, elements: number[]) => {
                 if (index != 0) {
@@ -85,13 +83,13 @@ export class CountriesAggregatedChartComponent implements OnInit {
                 }
               })
           ),
-          label: `${$event.value} recoverd`
+          label: `${$event} recoverd`
         },
         {
           data: [].concat.apply(
             [],
             this.allData
-              .filter(x => x.country == $event.value)
+              .filter(x => x.country == $event)
               .map(x => x.confirmed)
               .map((value, index, elements: number[]) => {
                 if (index != 0) {
@@ -99,16 +97,17 @@ export class CountriesAggregatedChartComponent implements OnInit {
                 }
               })
           ),
-          label: `${$event.value}} confirmed`
+          label: `${$event} confirmed`
         }
       ];
     });
-   
   }
 
   ngOnInit(): void {
     this.covidService.GetAllAggregatedCountries().subscribe((data: any) => {
       this.allData = data;
+
+      this.countryList = this.allData.map(x => x.country).filter((v, i, a) => a.indexOf(v) === i);
 
       this.total = this.allData
         .filter(x => x.country == 'Poland')
@@ -119,8 +118,6 @@ export class CountriesAggregatedChartComponent implements OnInit {
         .filter(x => x.country == 'Poland')
         .map(x => x.deaths)
         .slice(-1)[0];
-        
-       
 
       this.recovered = this.allData
         .filter(x => x.country == 'Poland')

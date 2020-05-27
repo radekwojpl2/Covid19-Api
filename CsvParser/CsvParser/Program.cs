@@ -9,12 +9,15 @@ namespace CsvParser
     {
         public static int Main(string[] args)
         {
+            string webMode = "";
             string pathToCsvFiles = "";
             string pathToJsonDestination = "";
-
+            CsvService csvProvider;
+            
+            
             try
             {
-                laodParameters(args, ref pathToCsvFiles, ref pathToJsonDestination);
+                laodParameters(args, ref pathToCsvFiles, ref pathToJsonDestination, ref webMode);
             }
             catch (Exception e)
             {
@@ -22,8 +25,18 @@ namespace CsvParser
                 return 0;
             }
 
-            var csvProvider = new CsvService(pathToCsvFiles, pathToJsonDestination,
-                new CsvProvider(new ReadFileProvider()));
+            if (webMode == "true")
+            {
+                csvProvider = new CsvService(pathToCsvFiles, pathToJsonDestination,
+                    new CsvProvider(new GitFileProvider()));
+            }
+            else 
+            {
+                csvProvider = new CsvService(pathToCsvFiles, pathToJsonDestination,
+                    new CsvProvider(new ReadFileProvider()));
+            }
+
+            
 
             try
             {
@@ -41,14 +54,14 @@ namespace CsvParser
             }
         }
 
-        static void laodParameters(string[] args, ref string pathToCSV, ref string pathToJsonDestination)
+        static void laodParameters(string[] args, ref string pathToCSV, ref string pathToJsonDestination, ref string webMode)
         {
             for (int i = 0; i < args.Length; i++)
             {
                 switch (i)
                 {
                     case 0:
-                        if (Directory.Exists(args[i]))
+                        if (args[i] != null)
                         {
                             pathToCSV = args[i];
                         }
@@ -68,8 +81,19 @@ namespace CsvParser
                         {
                             pathToJsonDestination = Directory.GetCurrentDirectory() + "/../JsonData/";
                         }
-
                         break;
+                    case 2:
+                        if (args[i] != null)
+                        {
+                            webMode = args[i];
+                        }
+                        else
+                        {
+                            webMode = "false";
+                        }
+                        
+                        break;
+                        
                 }
             }
         }
