@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-#
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvParser", "CsvParser\CsvParser.csproj", "{16800BFC-9B54-48C1-AE7C-CD7CF2161BF9}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsvParser", "CsvParser\CsvParser.csproj", "{16800BFC-9B54-48C1-AE7C-CD7CF2161BF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvParser.Tests", "CsvParser.Tests\CsvParser.Tests.csproj", "{F32C503E-0343-4106-A112-6DD9E7D48360}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsvParser.Tests", "CsvParser.Tests\CsvParser.Tests.csproj", "{F32C503E-0343-4106-A112-6DD9E7D48360}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvParser.Scheduler", "CsvParser.Scheduler\CsvParser.Scheduler.csproj", "{B76013CF-1723-4F5B-8013-52C264A63C58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,5 +23,15 @@ Global
 		{F32C503E-0343-4106-A112-6DD9E7D48360}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F32C503E-0343-4106-A112-6DD9E7D48360}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F32C503E-0343-4106-A112-6DD9E7D48360}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B76013CF-1723-4F5B-8013-52C264A63C58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B76013CF-1723-4F5B-8013-52C264A63C58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B76013CF-1723-4F5B-8013-52C264A63C58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B76013CF-1723-4F5B-8013-52C264A63C58}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {25B15EEE-3FFC-4B8B-92F0-47ADC996657E}
 	EndGlobalSection
 EndGlobal

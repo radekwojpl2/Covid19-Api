@@ -39,7 +39,7 @@ namespace CsvParser.Providers
             try
             {
                 using var client = new WebClient();
-                using var stream = client.OpenRead(new Uri(pathToFolder +"/worldwide-aggregated.csv"));
+                using var stream = client.OpenRead(new Uri(pathToFolder +"/worldwide-aggregate.csv"));
                 using var reader = new StreamReader(stream);
                 using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
             
