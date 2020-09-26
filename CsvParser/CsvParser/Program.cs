@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using CsvParser.Models.Models;
 using CsvParser.Providers;
 using CsvParser.Scheduler.Jobs;
 using CsvParser.Scheduler.Services;
@@ -15,94 +16,70 @@ using LogLevel = Quartz.Logging.LogLevel;
 
 namespace CsvParser
 {
-   public class Program
+    public class Program
     {
         static async Task Main(string[] args)
         {
-            //string webMode = "";
-            //string pathToCsvFiles = "";
-            //string pathToJsonDestination = "";
-            //CsvService csvProvider;
-            
-            
-            //try
-            //{
-            //    laodParameters(args, ref pathToCsvFiles, ref pathToJsonDestination, ref webMode);
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine(e);
-            //    return;
-            //}
 
-            //if (webMode == "true")
-            //{
-            //    csvProvider = new CsvService(pathToCsvFiles, pathToJsonDestination,
-            //        new CsvProvider(new GitFileProvider()));
-            //}
-            //else 
-            //{
-            //    csvProvider = new CsvService(pathToCsvFiles, pathToJsonDestination,
-            //        new CsvProvider(new ReadFileProvider()));
-            //}
+            string webMode = "";
+            string pathToCsvFiles = "";
+            string pathToJsonDestination = "";
+            CsvService csvProvider;
 
-            
 
-            //try
-            //{
-            //    csvProvider.SaveWorldWideAggregatedFile();
-            //    csvProvider.SaveCountriesAggregatedFile();
-            //    csvProvider.SaveTimeSeries19CovidCombinedFile();
-            //    csvProvider.SaveKeyCountriesPivotedFile();
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine($"ERROR: Error during processing {e}");
-            //}
+            try
+            {
+                laodParameters(args, ref pathToCsvFiles, ref pathToJsonDestination, ref webMode);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return;
+            }
+
+            if (webMode == "true")
+            {
+                csvProvider = new CsvService(pathToCsvFiles, pathToJsonDestination,
+                    new CsvProvider(new GitFileProvider()));
+            }
+            else
+            {
+                csvProvider = new CsvService(pathToCsvFiles, pathToJsonDestination,
+                    new CsvProvider(new ReadFileProvider()));
+            }
+
+
+
+            try
+            {
+                csvProvider.SaveWorldWideAggregatedFile();
+                csvProvider.SaveCountriesAggregatedFile();
+                csvProvider.SaveTimeSeries19CovidCombinedFile();
+                csvProvider.SaveKeyCountriesPivotedFile();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"ERROR: Error during processing {e}");
+            }
 
             await new HostBuilder()
                 .ConfigureServices(
-                (hostContext, services) =>
-                {
-                    services.AddLogging();
-                    services.AddHostedService<SchedulerService>();
-                })
+                    (hostContext, services) =>
+                    {
+                        services.AddSingleton(new CsvSchedulerConfig()
+                        {
+                            PathToCsvFiles = pathToCsvFiles,
+                            PathToJsonDestination = pathToJsonDestination
+                        });
+                        services.AddLogging();
+                        services.AddHostedService<SchedulerService>();
+                    })
                 .ConfigureLogging((hostContext, configLogging) =>
                 {
                     configLogging.AddConsole();
                     configLogging.AddDebug();
                 })
                 .RunConsoleAsync();
-                
-            //LogProvider.SetCurrentLogProvider(new ConsoleLogProvider());
-
-            //StdSchedulerFactory factory = new StdSchedulerFactory();
-            //IScheduler scheduler = await factory.GetScheduler();
-
-            //// and start it off
-            //await scheduler.Start();
-
-            //IJobDetail job = JobBuilder.Create<ParseCsvFileJob>()
-            //    .WithIdentity("job1", "group1")
-            //    .Build();
-
-            //ITrigger trigger = TriggerBuilder.Create()
-            //    .WithIdentity("trigger1", "group1")
-            //    .StartNow()
-            //    .WithSimpleSchedule(x => x
-            //        .WithIntervalInSeconds(10)
-            //        .RepeatForever())
-            //    .Build();
-
-            //await scheduler.ScheduleJob(job, trigger);
-
-            //await Task.Delay(TimeSpan.FromSeconds(60));
-
-            //// and last shut down the scheduler when you are ready to close your program
-            //await scheduler.Shutdown();
-
-            //Console.WriteLine("Press any key to close the application");
-            //Console.ReadKey();
 
         }
 
@@ -143,9 +120,9 @@ namespace CsvParser
                         {
                             webMode = "false";
                         }
-                        
+
                         break;
-                        
+
                 }
             }
         }

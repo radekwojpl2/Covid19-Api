@@ -1,8 +1,6 @@
 using System;
 using System.Globalization;
 using System.IO;
-using CsvHelper;
-using CsvParser.Models;
 using CsvParser.Providers.Interfaces;
 using Newtonsoft.Json;
 
