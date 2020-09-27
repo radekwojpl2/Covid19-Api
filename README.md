@@ -26,3 +26,13 @@ This app needs arguments to run
 
 dotnet run https://raw.githubusercontent.com/datasets/covid-19/master/data/ /home/radek/Desktop/Covid19-Api/Covid19-Api/JsonData true
 
+#### Run Csvparser from docker file
+Go to CsvParser project and 
+
+Create new VOLUME name DataVolume2 then run
+
+
+"docker docker build -t radekwojpl2/csvparser ."  then
+
+
+"docker run -ti --rm -v DataVolume2:/app/data radekwojpl2/csvparser"
