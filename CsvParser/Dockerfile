@@ -1,6 +1,8 @@
 FROM mcr.microsoft.com/dotnet/core/runtime:3.1 AS base
 WORKDIR /app
 
+VOLUME  /app/data 
+
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /src
 COPY ["CsvParser/CsvParser.csproj", "CsvParser/"]

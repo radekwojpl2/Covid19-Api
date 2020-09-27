@@ -41,10 +41,8 @@ namespace CsvParser.Scheduler.Services
 
             ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("triggerCsvJob", "group1")
-                .StartNow()
-                .WithSimpleSchedule(x => x
-                    .WithIntervalInSeconds(20)
-                    .RepeatForever())
+                .WithCronSchedule("0 00 04 * * ?")
+                .ForJob("parseCsvJob", "group1")
                 .Build();
 
             await this._scheduler.ScheduleJob(job, trigger, cancellationToken);
